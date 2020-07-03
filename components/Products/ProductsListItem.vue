@@ -69,7 +69,7 @@ export default {
     box-shadow: none;
   }
   #lower-background {
-    background: #E0E0E0;
+    background: #CFD8DC;
   }
   #bordered-button {
     border: 6px solid white !important;

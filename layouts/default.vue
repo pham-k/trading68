@@ -1,11 +1,13 @@
 <template>
   <v-app>
     <v-app-bar app elevate-on-scroll color="white">
-      <v-btn icon @click="$router.go(-1)" :disabled="$route.path === '/'">
-        <v-icon v-if="$route.path !== '/'" @click="foo">mdi-arrow-left</v-icon>
+      <v-btn icon :disabled="$route.path === '/'" @click="$router.go(-1)">
+        <v-icon v-if="$route.path !== '/'">
+          mdi-arrow-left
+        </v-icon>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title id="brand" class="text-uppercase font-weight-bold" @click="toHome">
+      <v-toolbar-title id="brand" class="text-uppercase font-weight-bold text-center" @click="toHome">
         Trading68
       </v-toolbar-title>
       <v-spacer />
@@ -57,12 +59,15 @@
         <v-icon>mdi-cart</v-icon>
       </v-btn>
     </v-bottom-navigation> -->
-    <!-- <v-footer
+    <v-footer
       app
-      class="d-none d-sm-block"
+      absolute
+      class=""
+      dark
+      color="primary"
     >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer> -->
+      <span class="text-uppercase text-caption">copyright @ {{ new Date().getFullYear() }}</span>
+    </v-footer>
   </v-app>
 </template>
 
@@ -97,20 +102,6 @@ export default {
       this.$router.push('/products')
     }
   }
-  // created () {
-  //   const firebaseConfig = {
-  //     apiKey: 'AIzaSyDP90ROVy3KquDr5_At8K3USKLhIiBJvs8',
-  //     authDomain: 'medcare-d50c6.firebaseapp.com',
-  //     databaseURL: 'https://medcare-d50c6.firebaseio.com',
-  //     projectId: 'medcare-d50c6',
-  //     storageBucket: 'medcare-d50c6.appspot.com',
-  //     messagingSenderId: '320481092894',
-  //     appId: '1:320481092894:web:5a033290c2678c7dbf950f',
-  //     measurementId: 'G-XSGRXJ8GRS'
-  //   }
-  //   firebase.initializeApp(firebaseConfig)
-  //   console.log('[firebase/app] initialized')
-  // }
 }
 </script>
 

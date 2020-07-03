@@ -69,8 +69,8 @@ export const actions = {
       .push(order)
       .then((result) => {
         commit('setCart', [])
-        console.log('[firebase/database] Write successfully')
-        console.log(result)
+        // console.log('[firebase/database] Write successfully')
+        // console.log(result)
         // TODO return order information
       })
       .catch((error) => {
@@ -95,6 +95,6 @@ export const getters = {
     state.cartItems.forEach((item) => {
       totalPrice += item.quantity * item.price
     })
-    return totalPrice
+    return totalPrice.toFixed(2)
   }
 }

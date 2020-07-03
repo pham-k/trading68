@@ -2,12 +2,27 @@ import * as firebase from 'firebase/app'
 import 'firebase/database'
 
 export const state = () => ({
-  orders: []
+  orders: [],
+  error: null
 })
 
 export const mutations = {
   SET_ORDERS (state, orders) {
     state.orders = orders
+  },
+  UPDATE_ORDERS_STATUS (state, payload) {
+    state.orders.map((order) => {
+      const match = payload.selectedOrders.find(so => so.orderId === order.orderId)
+      if (match) {
+        order.status = payload.status
+        order.updatedDate = new Date(payload.updatedDate).toLocaleDateString('en-CA')
+      }
+    })
+  },
+  SET_ERROR (state, payload) {
+    if (payload !== null) {
+      state.error = 'Permission denied'
+    }
   }
 }
 
@@ -28,7 +43,7 @@ export const actions = {
           })
           order.orderId = key
           Object.keys(value).forEach((key) => {
-            if (key === 'date') {
+            if (key === 'createdDate' | key === 'updatedDate') {
               order[key] = new Date(value[key]).toLocaleDateString('en-CA')
             } else if (key === 'cartItems') {
               const cartItems = value[key]
@@ -43,10 +58,31 @@ export const actions = {
           orders.push(order)
         }
         commit('SET_ORDERS', orders)
+        commit('SET_ERROR', null)
       })
       .catch((error) => {
-        console.log(error)
+        commit('SET_ERROR', error)
       })
+  },
+  async updateOrdersStatus ({ commit }, payload) {
+    const updatedDate = Date.now()
+    payload.updatedDate = updatedDate
+    for await (const order of payload.selectedOrders) {
+      const updates = {}
+      updates['orders/' + order.orderId + '/status/'] = payload.status
+      updates['orders/' + order.orderId + '/updatedDate/'] = updatedDate
+      firebase
+        .database()
+        .ref()
+        .update(updates, (error) => {
+          if (error) {
+            console.log(error)
+          } else {
+            console.log('[admin/updateOrderStatus] success')
+            commit('UPDATE_ORDERS_STATUS', payload)
+          }
+        })
+    }
   }
 }
 
@@ -56,5 +92,8 @@ export const getters = {
   },
   getOrdersByStatus: state => (status) => {
     return state.orders.filter(order => status.includes(order.status))
+  },
+  getError (state) {
+    return state.error
   }
 }

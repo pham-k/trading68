@@ -1,7 +1,7 @@
 export const state = () => ({
   products: [
     {
-      productId: 'a1',
+      productId: 'AA01',
       title: 'Product 1',
       price: 0.99,
       description: 'Awesome Product 1!',
@@ -9,7 +9,7 @@ export const state = () => ({
       featured: true
     },
     {
-      productId: 'a2',
+      productId: 'AA02',
       title: 'Product 2',
       price: 2.49,
       description: 'Awesome Product 2!',
@@ -17,7 +17,7 @@ export const state = () => ({
       featured: true
     },
     {
-      productId: 'a3',
+      productId: 'AA03',
       title: 'Product 3',
       price: 1.5,
       description: 'Awesome Product 3!',
@@ -25,7 +25,7 @@ export const state = () => ({
       featured: true
     },
     {
-      productId: 'a4',
+      productId: 'AA04',
       title: 'Product 4',
       price: 3.99,
       description: 'Awesome Product 4!',

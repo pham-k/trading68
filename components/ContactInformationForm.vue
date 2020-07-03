@@ -50,8 +50,6 @@
 </template>
 
 <script>
-// import * as firebase from 'firebase/app'
-// import 'firebase/database'
 import { validationMixin } from 'vuelidate'
 import { required, maxLength, email, numeric, minLength } from 'vuelidate/lib/validators'
 
@@ -141,16 +139,18 @@ export default {
 
         // create order
         const order = {
-          name: this.name,
-          email: this.email,
-          phoneNumber: this.phoneNumber,
-          address: this.address,
-          date: Date.now(),
-          totalPrice: this.totalPrice,
+          customerName: this.name,
+          customerEmail: this.email,
+          customerPhone: this.phoneNumber,
+          customerAddress: this.address,
+          createdDate: Date.now(),
+          priceTotal: this.totalPrice,
           cartItems: editedCartItems,
-          status: 'Pending'
+          status: 'Pending',
+          updatedDate: Date.now()
         }
         this.$store.dispatch('cart/postCart', order)
+        this.$router.push('/')
         // TODO show pending, success, error status
       }
     },
@@ -167,19 +167,5 @@ export default {
     phoneNumber: { required, numeric, maxLength: maxLength(10), minLength: minLength(10) },
     address: { required }
   }
-  // beforeMounted () {
-  //   const firebaseConfig = {
-  //     apiKey: 'AIzaSyDP90ROVy3KquDr5_At8K3USKLhIiBJvs8',
-  //     authDomain: 'medcare-d50c6.firebaseapp.com',
-  //     databaseURL: 'https://medcare-d50c6.firebaseio.com',
-  //     projectId: 'medcare-d50c6',
-  //     storageBucket: 'medcare-d50c6.appspot.com',
-  //     messagingSenderId: '320481092894',
-  //     appId: '1:320481092894:web:5a033290c2678c7dbf950f',
-  //     measurementId: 'G-XSGRXJ8GRS'
-  //   }
-  //   firebase.initializeApp(firebaseConfig)
-  //   console.log('[firebase/app] initialized')
-  // }
 }
 </script>

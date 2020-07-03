@@ -1,4 +1,4 @@
-import { auth } from '~/plugins/firebase.js'
+import { auth, provider } from '~/plugins/firebase.js'
 
 export const state = () => ({
   user: null
@@ -18,8 +18,26 @@ export const actions = {
     await auth.signOut()
     commit('SET_USER', null)
   },
-  async signIn ({ commit }) {
-    await auth.signInWithEmailAndPassword('a@a.com', '123456')
+  async signInWithGoogle ({ commit }) {
+    await auth
+      .signInWithPopup(provider)
+      .then((result) => {
+      // var token = result.credential.accessToken
+        const userId = result.user.uid
+        console.log(userId)
+        commit('SET_USER', userId)
+      })
+      .catch((error) => {
+        if (error) {
+          console.log(error.code)
+          console.log(error.message)
+          console.log(error.email)
+          console.log(error.credential)
+        }
+      })
+  },
+  async signInWithEmailAndPassword ({ commit }) {
+    await auth.signInWithEmailAndPassword('', '')
       .then((result) => {
         const user = {
           uid: result.user.uid,

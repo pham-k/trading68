@@ -48,8 +48,12 @@
         <v-stepper-content step="1">
           <v-card v-if="getCartItems.length!==0" dark color="primary" class="d-flex flex-row">
             <v-card-text>
-              <div class="text-center body-1 mb-2">Subtotal</div>
-              <div class="text-center text-h6">CA ${{ getTotalPrice }}</div>
+              <div class="text-center body-1 mb-2">
+                Subtotal
+              </div>
+              <div class="text-center text-h6">
+                CA ${{ getTotalPrice }}
+              </div>
             </v-card-text>
             <v-divider
               inset
@@ -58,8 +62,12 @@
               class="my-2"
             />
             <v-card-text>
-              <div class="text-center body-1 mb-2">Tax</div>
-              <div class="text-center text-h6">CA $0</div>
+              <div class="text-center body-1 mb-2">
+                Tax
+              </div>
+              <div class="text-center text-h6">
+                CA $0
+              </div>
             </v-card-text>
             <v-divider
               inset
@@ -68,8 +76,12 @@
               class="my-2"
             />
             <v-card-text>
-              <div class="text-center body-1 mb-2">Total</div>
-              <div class="text-center text-h6">CA ${{ getTotalPrice + 0 }}</div>
+              <div class="text-center body-1 mb-2">
+                Total
+              </div>
+              <div class="text-center text-h6">
+                CA ${{ getTotalPrice + 0 }}
+              </div>
             </v-card-text>
           </v-card>
           <cart-items :cart-items="getCartItems" />
@@ -80,8 +92,8 @@
             </v-btn>
             <v-btn
               color="primary"
-              @click="e1 = 2"
               class="mx-4"
+              @click="e1 = 2"
             >
               Next
             </v-btn>
@@ -99,12 +111,12 @@
           />
         </v-stepper-content>
 
-        <v-stepper-step step="3">
+        <!-- <v-stepper-step step="3">
           Contact information
         </v-stepper-step>
         <v-stepper-content step="3">
           <h1>receipt</h1>
-        </v-stepper-content>
+        </v-stepper-content> -->
         <!-- </v-stepper-items> -->
       </v-stepper>
     </v-col>
@@ -136,31 +148,5 @@ export default {
   },
   methods: {
   }
-  // head () {
-  //   return {
-  //     script: [
-  //       {
-  //         src: 'https://www.gstatic.com/firebasejs/7.15.4/firebase-app.js',
-  //         defer: true,
-  //         async: true,
-  //         callback: () => {
-  //           this.isFirebaseLoaded = true
-  //           console.log('Firebase loaded')
-  //           const firebaseConfig = {
-  //             apiKey: 'AIzaSyDP90ROVy3KquDr5_At8K3USKLhIiBJvs8',
-  //             authDomain: 'medcare-d50c6.firebaseapp.com',
-  //             databaseURL: 'https://medcare-d50c6.firebaseio.com',
-  //             projectId: 'medcare-d50c6',
-  //             storageBucket: 'medcare-d50c6.appspot.com',
-  //             messagingSenderId: '320481092894',
-  //             appId: '1:320481092894:web:5a033290c2678c7dbf950f',
-  //             measurementId: 'G-XSGRXJ8GRS'
-  //           }
-  //           window.firebase.initializeApp(firebaseConfig)
-  //         }
-  //       }
-  //     ]
-  //   }
-  // }
 }
 </script>

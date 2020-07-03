@@ -1,5 +1,5 @@
 <template>
-  <v-row>
+  <v-row v-if="getError === null">
     <v-col cols="12">
       <v-combobox
         v-model="selectedChips"
@@ -28,6 +28,11 @@
       <orders-table :orders="getOrdersByStatus" />
     </v-col>
   </v-row>
+  <v-card v-else color="error" dark class="pa-4 my-6">
+    <v-card-text class="text-center text-h6">
+      {{ getError }}
+    </v-card-text>
+  </v-card>
 </template>
 
 <script>
@@ -39,28 +44,31 @@ export default {
   },
   data () {
     return {
-      selectedChips: [],
+      selectedChips: ['Pending', 'Available'],
       chips: ['Pending', 'Available', 'Delivered', 'Archived']
-    }
-  },
-  watch: {
-    selectedChips: (val) => {
-      console.log(val)
     }
   },
   computed: {
     getOrdersByStatus () {
       return this.$store.getters['admin/getOrdersByStatus'](this.selectedChips)
+    },
+    getError () {
+      return this.$store.getters['admin/getError']
     }
+  },
+  // watch: {
+  //   selectedChips: (val) => {
+  //     console.log(val)
+  //   }
+  // },
+  created () {
+    this.$store.dispatch('admin/fetchOrders')
   },
   methods: {
     removeChip (item) {
       this.selectedChips.splice(this.selectedChips.indexOf(item), 1)
       this.selectedChips = [...this.selectedChips]
     }
-  },
-  created () {
-    this.$store.dispatch('admin/fetchOrders')
   }
 }
 </script>

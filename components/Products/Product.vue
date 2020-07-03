@@ -38,7 +38,6 @@
               {{ product.title }}
             </v-card-title>
             <v-card-text>
-              <div></div>
               <p class="text-center text-body-1">
                 {{ product.description }}
               </p>
@@ -74,10 +73,11 @@
             </v-row>
             <v-row class="">
               <v-spacer />
-              <v-btn @click="addToCart" color="primary">Add {{ quantity }} to cart</v-btn>
+              <v-btn color="primary" @click="addToCart">
+                Add {{ quantity }} to cart
+              </v-btn>
               <v-spacer />
             </v-row>
-            <!-- </v-card-actions> -->
           </v-col>
         </v-row>
       </v-card>

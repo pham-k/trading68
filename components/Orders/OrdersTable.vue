@@ -1,5 +1,34 @@
 <template>
-  <v-card flat>
+  <div>
+    <v-row class="mb-2 px-3">
+      <v-menu top close-on-click>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            v-bind="attrs"
+            :disabled="selectedOrders.length < 1"
+            v-on="on"
+            outlined
+          >
+            <v-icon left small>mdi-pencil</v-icon>
+            {{ selectedStatus ? selectedStatus : 'Edit status' }}
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item
+            v-for="(item, index) in statusListItem"
+            :key="index"
+            @click="selectedStatus = item.title"
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-spacer />
+      <v-btn color="primary" @click="changeOrdersStatus">
+        Update
+      </v-btn>
+    </v-row>
+    <!-- <v-card flat> -->
     <v-data-table
       v-model="selectedOrders"
       :headers="headers"
@@ -9,13 +38,15 @@
       item-key="orderId"
       loading-text="Loading... Please wait"
       show-select
-      @click:row="showDetails"
     >
       <template v-slot:item.status="{ item }">
-        <v-chip small :color="getStatusColor(item.status)" dark>{{ item.status }}</v-chip>
+        <v-chip small :color="getStatusColor(item.status)" dark>
+          {{ item.status }}
+        </v-chip>
       </template>
     </v-data-table>
-  </v-card>
+    <!-- </v-card> -->
+  </div>
 </template>
 
 <script>
@@ -31,24 +62,33 @@ export default {
       headers: [
         // { text: 'Order ID', value: 'orderId', sortable: false },
         { text: 'Status', value: 'status' },
-        { text: 'Name', value: 'name' },
-        { text: 'Date', value: 'date' },
-        { text: 'Address', value: 'address' },
-        { text: 'Email', value: 'email' },
-        { text: 'Phone', value: 'phoneNumber' },
-        { text: 'Total', value: 'totalPrice' },
-        { text: 'a1', value: 'a1' },
-        { text: 'a2', value: 'a2' },
-        { text: 'a3', value: 'a3' },
-        { text: 'a4', value: 'a4' },
-        { text: 'a5', value: 'a5' },
-        { text: 'a6', value: 'a6' },
-        { text: 'a7', value: 'a7' },
-        { text: 'a8', value: 'a8' }
+        { text: 'Customer', value: 'customerName' },
+        { text: 'Created', value: 'createdDate' },
+        { text: 'Address', value: 'customerAddress' },
+        { text: 'Email', value: 'customerEmail' },
+        { text: 'Phone', value: 'customerPhone' },
+        { text: 'Total', value: 'priceTotal' },
+        { text: 'AA01', value: 'AA01' },
+        { text: 'AA02', value: 'AA02' },
+        { text: 'AA03', value: 'AA03' },
+        { text: 'AA04', value: 'AA04' },
+        { text: 'Updated', value: 'updatedDate' }
       ],
-      selectedOrders: []
+      selectedOrders: [],
+      statusListItem: [
+        { title: 'Pending' },
+        { title: 'Available' },
+        { title: 'Delivered' },
+        { title: 'Archived' }
+      ],
+      selectedStatus: null
     }
   },
+  // watch: {
+  //   selectedOrders: (val) => {
+  //     console.log(val)
+  //   }
+  // },
   methods: {
     getStatusColor (status) {
       if (status === 'Pending') {
@@ -61,8 +101,16 @@ export default {
         return 'gray'
       }
     },
-    showDetails (value) {
-      console.log(value.name)
+    // showDetails (value) {
+    //   console.log(value.name)
+    // },
+    changeOrdersStatus () {
+      const payload = {
+        selectedOrders: this.selectedOrders,
+        status: this.selectedStatus
+      }
+      this.$store.dispatch('admin/updateOrdersStatus', payload)
+      this.selectedOrders = []
     }
   }
 }
