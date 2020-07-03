@@ -16,6 +16,9 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
+    // script: [
+    //   { src: 'https://apis.google.com/js/api.js', defer: true, async: true }
+    // ]
   },
   /*
   ** Customize the progress-bar color
@@ -54,9 +57,9 @@ export default {
       dark: false,
       themes: {
         light: {
-          primary: colors.lightBlue.base,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+          primary: colors.grey.darken3,
+          accent: colors.grey.lighten3,
+          secondary: colors.grey.lighten3,
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,

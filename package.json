@@ -13,9 +13,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "firebase": "^7.15.4",
     "nuxt": "^2.0.0",
     "swiper": "^5.4.3",
-    "vue-awesome-swiper": "^4.1.1"
+    "vue-awesome-swiper": "^4.1.1",
+    "vuelidate": "^0.7.5"
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.0.0",

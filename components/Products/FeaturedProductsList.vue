@@ -1,10 +1,14 @@
 <template>
   <swiper ref="swiper" class="swiper" :options="swiperOption">
-    <swiper-slide v-for="featuredProduct in featuredProducts" :key="featuredProduct.id">
-      <featured-product :featured-product="featuredProduct"/>
+    <swiper-slide
+      v-for="featuredProduct in featuredProducts"
+      :key="featuredProduct.id"
+    >
+      <featured-products-list-item :featured-product="featuredProduct" />
     </swiper-slide>
-    <div class="swiper-button-prev" slot="button-prev"></div>
-    <div class="swiper-button-next" slot="button-next"></div>
+    <div slot="button-prev" class="swiper-button-prev" />
+    <div slot="button-next" class="swiper-button-next" />
+    <div slot="pagination" class="swiper-pagination" />
   </swiper>
 </template>
 
@@ -15,13 +19,13 @@ import {
   directive
 } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.css'
-import FeaturedProduct from '~/components/Products/FeaturedProduct.vue'
+import FeaturedProductsListItem from '~/components/Products/FeaturedProductsListItem.vue'
 
 export default {
   components: {
     Swiper,
     SwiperSlide,
-    FeaturedProduct
+    FeaturedProductsListItem
   },
   directives: {
     swiper: directive
@@ -35,18 +39,22 @@ export default {
   data () {
     return {
       swiperOption: {
-        slidesPerView: 3,
+        slidesPerView: 5,
         spaceBetween: 50,
         mousewheel: true,
         keyboard: {
           enabled: true
         },
         centeredSlides: true,
-        loop: true,
+        // loop: true,
         loopFillGroupWithBlank: false,
         pagination: {
           el: '.swiper-pagination',
           clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         },
         breakpoints: {
           1024: {
@@ -59,7 +67,7 @@ export default {
           },
           640: {
             slidesPerView: 2,
-            spaceBetween: 20
+            spaceBetween: 10
           },
           320: {
             slidesPerView: 1,
