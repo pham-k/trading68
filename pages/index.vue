@@ -43,7 +43,7 @@
       </p>
       <p class="text-justify">
         <v-icon color="primary" class="mr-4">mdi-email</v-icon>
-        trading68@test.com
+        68tradingco@gmail.com
       </p>
     </v-col>
   </v-row>

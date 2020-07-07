@@ -1,4 +1,5 @@
 <template>
+  <!-- <div> -->
   <form>
     <v-text-field
       v-model="name"
@@ -38,7 +39,7 @@
         Clear
       </v-btn>
       <v-btn
-        class="mx-4"
+        class="mr-4 ml-2"
         color="primary"
         :disabled="isDisabled"
         @click="submitForm"
@@ -47,11 +48,32 @@
       </v-btn>
     </v-row>
   </form>
+    <!-- <v-snackbar
+      v-model="snackbar"
+      timeout="5000"
+      bottom
+      app
+    >
+      {{ getSubmitStatus }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          color="blue"
+          text
+          v-bind="attrs"
+          to="/"
+          @click="snackbar = false"
+        >
+          Main Page
+        </v-btn>
+      </template>
+    </v-snackbar> -->
+  <!-- </div> -->
 </template>
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, maxLength, email, numeric, minLength } from 'vuelidate/lib/validators'
+import { required, email, numeric } from 'vuelidate/lib/validators'
 
 export default {
   mixins: [validationMixin],
@@ -71,9 +93,18 @@ export default {
       email: '',
       phoneNumber: '',
       address: ''
+      // snackbar: false
     }
   },
   computed: {
+    // getSubmitStatus () {
+    //   const foo = this.$store.getters['cart/getSubmitStatus']
+    //   if (foo === 'success') {
+    //     return 'Your order has been recorded'
+    //   } else {
+    //     return 'Error'
+    //   }
+    // },
     nameErrors () {
       const errors = []
       if (!this.$v.name.$dirty) {
@@ -150,7 +181,8 @@ export default {
           updatedDate: Date.now()
         }
         this.$store.dispatch('cart/postCart', order)
-        this.$router.push('/')
+        // this.snackbar = true
+        this.$router.push('/order')
         // TODO show pending, success, error status
       }
     },
@@ -164,7 +196,7 @@ export default {
   validations: {
     name: { required },
     email: { required, email },
-    phoneNumber: { required, numeric, maxLength: maxLength(10), minLength: minLength(10) },
+    phoneNumber: { required, numeric },
     address: { required }
   }
 }

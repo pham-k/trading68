@@ -7,7 +7,7 @@
       sm="6"
       md="3"
     >
-      <products-list-item :product="product"/>
+      <products-list-item :product="product" />
     </v-col>
   </v-row>
 </template>

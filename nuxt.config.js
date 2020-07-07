@@ -46,6 +46,8 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    // '@nuxtjs/vuetify',
+    // '@nuxtjs/eslint-module'
   ],
   /*
   ** vuetify module configuration
@@ -53,6 +55,7 @@ export default {
   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
       dark: false,
       themes: {

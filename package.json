@@ -1,7 +1,7 @@
 {
-  "name": "trading68",
+  "name": "Trading68",
   "version": "1.0.0",
-  "description": "My wondrous Nuxt.js project",
+  "description": "Medical supplies store",
   "author": "pham-k",
   "private": true,
   "scripts": {

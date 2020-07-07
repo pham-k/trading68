@@ -30,7 +30,9 @@ export const state = () => ({
     //   feature: true,
     //   quantity: 1
     // }
-  ]
+  ],
+  order: null,
+  orderSubmitStatus: 'NO_ORDER'
 })
 
 export const mutations = {
@@ -58,6 +60,12 @@ export const mutations = {
   removeCartItem (state, item) {
     const record = state.cartItems.find(element => element.productId === item.productId)
     state.cartItems.splice(state.cartItems.indexOf(record), 1)
+  },
+  SET_ORDER_SUBMIT_STATUS (state, payload) {
+    state.orderSubmitStatus = payload
+  },
+  SET_ORDER (state, payload) {
+    state.order = payload
   }
 }
 
@@ -69,12 +77,15 @@ export const actions = {
       .push(order)
       .then((result) => {
         commit('setCart', [])
+        commit('SET_ORDER_SUBMIT_STATUS', 'SUCCESS')
+        commit('SET_ORDER', order)
         // console.log('[firebase/database] Write successfully')
         // console.log(result)
         // TODO return order information
       })
       .catch((error) => {
         console.log(error)
+        commit('SET_ORDER_SUBMIT_STATUS', 'ERROR')
       })
   }
 }
@@ -96,5 +107,11 @@ export const getters = {
       totalPrice += item.quantity * item.price
     })
     return totalPrice.toFixed(2)
+  },
+  getOrderSubmitStatus (state) {
+    return state.orderSubmitStatus
+  },
+  getOrder (state) {
+    return state.order
   }
 }
