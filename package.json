@@ -15,7 +15,7 @@
   "dependencies": {
     "firebase": "^7.15.4",
     "nuxt": "^2.0.0",
-    "swiper": "^5.4.3",
+    "swiper": "^6.5.1",
     "vue-awesome-swiper": "^4.1.1",
     "vuelidate": "^0.7.5"
   },
